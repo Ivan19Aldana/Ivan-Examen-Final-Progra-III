@@ -30,6 +30,7 @@
                                 <div class=" form-group col-md-12 ">
                                     <label for="">Codigo</label>
                                     <input type="text" class="form-control border border-success" name="codigo_empleado" placeholder="">
+                                    <input type="hidden" name="control" value="form">
                                 </div>
 
                                 <div class=" form-group col-md-12 ">

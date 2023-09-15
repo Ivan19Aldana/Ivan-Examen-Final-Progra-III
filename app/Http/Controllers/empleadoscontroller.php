@@ -9,10 +9,31 @@ use Illuminate\Support\Facades\DB;
 
 class empleadoscontroller extends Controller
 {
+    public function getAll(){
+        $emplaeados = empleados::all();
+        return $emplaeados;
+    }
+
+    public function getEmpleados($id){
+        $empleado=empleados::find($id);
+        return $empleado;
+    }
+
+    public function deleteEmpleado($id){
+        $empleado= $this->getEmpleados($id);
+        $empleado->delete();
+        return $empleado;
+    }
+
+
+    public function editEmpleado($id, Request $request){
+        $empleado = $this->getEmpleados($id);
+        $empleado->fill($request->all())->save();
+        return $empleado;
+    }
+
     public function listado(){
         $emplaeados = DB::table('registro_de_empleados')
-            ->join('users', 'registro_de_empleados.id_usuario', '=', 'users.id')
-            ->select('registro_de_empleados.*', 'users.name')
             ->paginate(10);
         return view('Empleados.lista', compact('emplaeados'));
     }
@@ -28,29 +49,40 @@ class empleadoscontroller extends Controller
     }
 
     public function save(Request $request){
-        $validator=$this->validate($request,[
+        if ($request->control=='form' || $request->control=='api'){
+            $validator=$this->validate($request,[
 
-            'codigo_empleado'=>'required',
-            'nombre_empleado'=>'required',
-            'numero_telefono'=>'required',
-            'correo'=>'required|email|unique:registro_de_empleados',
-            'direccion'=>'required',
-            'departamento'=>'required',
+                'codigo_empleado'=>'required',
+                'nombre_empleado'=>'required',
+                'numero_telefono'=>'required',
+                'correo'=>'required|email|unique:registro_de_empleados',
+                'direccion'=>'required',
+                'departamento'=>'required',
 
-        ]);
+            ]);
 
-        empleados::create([
-            'codigo_empleado' => $validator['codigo_empleado'],
-            'nombre_empleado' => $validator['nombre_empleado'],
-            'numero_telefono' => $validator['numero_telefono'],
-            'correo' => $validator['correo'],
-            'direccion' => $validator['direccion'],
-            'departamento' => $validator['departamento'],
-            'id_usuario'=>Auth()->user()->id
-            //'idjornada'=>$validator['jornada'],
-        ]);
+            empleados::create([
+                'codigo_empleado' => $validator['codigo_empleado'],
+                'nombre_empleado' => $validator['nombre_empleado'],
+                'numero_telefono' => $validator['numero_telefono'],
+                'correo' => $validator['correo'],
+                'direccion' => $validator['direccion'],
+                'departamento' => $validator['departamento'],
+                //'id_usuario'=>Auth()->user()->id
+
+            ]);
+        }
         //si funciona este
-        return back()->with('empleadoguardado', 'Empleado guardado con exito');
+        if ($request->control=='form'){
+            return redirect()->route('Listar')
+                ->with('empleadoguardado', 'Empleado guardado con exito');
+        }elseif ($request->control=='api'){
+            return response()->json([
+                'codigo' => '1',
+                'descripcion' => 'Guardado exitosamente',
+            ]);
+        }
+
     }
 
     public function modificar ($id){

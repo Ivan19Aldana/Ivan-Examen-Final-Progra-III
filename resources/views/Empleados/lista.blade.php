@@ -10,12 +10,11 @@
             <table class="table table-striped table-strpied text-center">
                 <thead class="thead-success">
                 <tr class="table-success">
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Codigo</th>
+                    <th scope="col">Código</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Telefono</th>
+                    <th scope="col">Teléfono</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Direcciòn</th>
+                    <th scope="col">Dirección</th>
                     <th scope="col">Departamento</th>
                     <th scope="col">Opciones</th>
 
@@ -25,7 +24,6 @@
                 <tbody>
                     @foreach($emplaeados as $empleado)
                     <tr>
-                        <td class=" border px-4 py-2">{{$empleado->name}}</td>
                         <td class=" border px-4 py-2">{{$empleado->codigo_empleado}}</td>
                         <td class=" border px-4 py-2">{{$empleado->nombre_empleado}}</td>
                         <td class=" border px-4 py-2">{{$empleado->numero_telefono}}</td>

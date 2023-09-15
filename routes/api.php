@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('get-empleados', [\App\Http\Controllers\empleadoscontroller::class, 'getAll'])->name('api-getAll');
+Route::put('save-empleados', [\App\Http\Controllers\empleadoscontroller::class, 'save'])->name('api-save');
+Route::delete('delete-empleados/{id}', [\App\Http\Controllers\empleadoscontroller::class, 'deleteEmpleado'])->name('api-deleteEmpleado');
+Route::post('edit-empleados/{id}', [\App\Http\Controllers\empleadoscontroller::class, 'editEmpleado'])->name('api-editEmpleado');
