@@ -22,3 +22,4 @@ Route::get('get-empleados', [\App\Http\Controllers\empleadoscontroller::class, '
 Route::put('save-empleados', [\App\Http\Controllers\empleadoscontroller::class, 'save'])->name('api-save');
 Route::delete('delete-empleados/{id}', [\App\Http\Controllers\empleadoscontroller::class, 'deleteEmpleado'])->name('api-deleteEmpleado');
 Route::post('edit-empleados/{id}', [\App\Http\Controllers\empleadoscontroller::class, 'editEmpleado'])->name('api-editEmpleado');
+Route::get('get-empleado/{id}', [\App\Http\Controllers\empleadoscontroller::class, 'getEmpleado'])->name('getEmpleado');
