@@ -7,12 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class empleadoscontroller extends Controller
+class   empleadoscontroller extends Controller
 
 {
     public function getAll(){
         $emplaeados = empleados::all();
         return $emplaeados;
+    }
+
+    public function getEmpleados($id){
+        $empleado=empleados::find($id);
+        return $empleado;
     }
 
     public function deleteEmpleado($id){
